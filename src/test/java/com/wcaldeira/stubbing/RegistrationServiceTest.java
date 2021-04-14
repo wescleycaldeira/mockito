@@ -121,5 +121,20 @@ public class RegistrationServiceTest {
                 () -> registrationService.registerUser("duke", Utils.createContactInformation("test@mockito.org")));
     }
 
+    @Test
+    void shouldAllowRegistrationOfNewUser() {
+        when(bannedUsersClient.isBanned(eq("duke"), any(Address.class))).thenReturn(false);
+        when(userRepository.findByUsername("duke")).thenReturn(null);
+        when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
+            User user = invocation.getArgument(0);
+            user.setId(42L);
+            return user;
+        });
+
+        User user = registrationService.registerUser("duke", Utils.createContactInformation("duke@mockito.org"));
+
+        assertNotNull(user);
+    }
+
 
 }
