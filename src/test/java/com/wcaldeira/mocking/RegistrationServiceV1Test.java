@@ -1,4 +1,4 @@
-package mocking;
+package com.wcaldeira.mocking;
 
 import mockito.*;
 import org.junit.jupiter.api.Test;

@@ -1,17 +1,15 @@
-package mocking;
+package com.wcaldeira.mocking;
 
 import mockito.BannedUsersClient;
 import mockito.RegistrationService;
 import mockito.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 
-// JUnit 4 @RunWith(MockitoJUnitRunner.class)
-@ExtendWith(MockitoExtension.class)
-public class RegistrationServiceV3Test {
+public class RegistrationServiceV2Test {
 
     @Mock
     private UserRepository userRepository;
@@ -22,6 +20,13 @@ public class RegistrationServiceV3Test {
     @InjectMocks
     private RegistrationService registrationService;
 
+    @BeforeEach
+    void setUp(){
+        MockitoAnnotations.openMocks(this);
+//        Strategy of @InjectMocks doesn't work
+//        this.registrationService = new RegistrationService(userRepository, bannedUsersClient);
+    }
+
     @Test
     void shouldRegisterUnknownUser(){
         System.out.println(userRepository.getClass());
@@ -30,6 +35,5 @@ public class RegistrationServiceV3Test {
 
         System.out.println(registrationService.toString());
     }
-
 
 }

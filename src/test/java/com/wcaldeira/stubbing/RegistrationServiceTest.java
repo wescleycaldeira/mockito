@@ -1,16 +1,13 @@
-package stubbing;
+package com.wcaldeira.stubbing;
 
+import com.wcaldeira.Utils;
 import mockito.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -114,6 +111,14 @@ public class RegistrationServiceTest {
         });
 
         System.out.println(userRepository.save(new User()).getId());
+    }
+
+    @Test
+    void shouldNotAllowRegistrationOfBannedUsers() {
+        when(bannedUsersClient.isBanned(eq("duke"), any(Address.class))).thenReturn(true);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> registrationService.registerUser("duke", Utils.createContactInformation("test@mockito.org")));
     }
 
 
