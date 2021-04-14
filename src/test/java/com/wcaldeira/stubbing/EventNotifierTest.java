@@ -32,4 +32,14 @@ public class EventNotifierTest {
         eventNotifier.notifyNewUserCreation(username);
         Assertions.assertThrows(RuntimeException.class, () -> eventNotifier.notifyNewUserCreation(username));
     }
+
+    @Test
+    void doReturnExample() {
+        // .when and .doReturn have the same result
+        // .doReturn isn`t type safe
+//        Mockito.when(bannedUsersClient.amountOfBannedAccounts()).thenReturn(30);
+        Mockito.doReturn(31).when(bannedUsersClient).amountOfBannedAccounts();
+
+        System.out.println(bannedUsersClient.amountOfBannedAccounts());
+    }
 }
