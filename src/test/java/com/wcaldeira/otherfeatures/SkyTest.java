@@ -28,6 +28,7 @@ public class SkyTest {
         System.out.println(bannedUsersClient.bannedUserId());
     }
 
+    @Test
     void spiesGotcha() {
         List spiedList = Mockito.spy(ArrayList.class);
 
